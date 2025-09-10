@@ -16,11 +16,12 @@ const server = http.createServer(app);
 app.use(
   cors({
     origin: [
-      "http://localhost:3000", // pour le dev local
-      "https://ybchat.netlify.app/", // ton futur site Netlify
+      "http://localhost:3000", // Dev local
+      "https://ybchat.netlify.app", // ✅ sans le "/" à la fin
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
@@ -36,8 +37,9 @@ app.use("/api/upload", require("./routes/upload"));
 // 🔹 Socket.IO configuration
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "https://ybchat.netlify.app/"],
+    origin: ["http://localhost:3000", "https://ybchat.netlify.app"],
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
@@ -117,7 +119,6 @@ io.on("connection", (socket) => {
   });
 });
 
-// 🔹 Connexion MongoDB + lancement serveur
 // 🔹 Connexion MongoDB + lancement serveur
 mongoose
   .connect(process.env.MONGO_URI, {
