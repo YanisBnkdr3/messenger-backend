@@ -17,7 +17,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000", // pour le dev local
-      "https://ton-frontend.netlify.app", // ton futur site Netlify
+      "https://ybchat.netlify.app/", // ton futur site Netlify
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -36,7 +36,7 @@ app.use("/api/upload", require("./routes/upload"));
 // 🔹 Socket.IO configuration
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "https://ton-frontend.netlify.app"],
+    origin: ["http://localhost:3000", "https://ybchat.netlify.app/"],
     methods: ["GET", "POST"],
   },
 });
