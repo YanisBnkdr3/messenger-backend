@@ -13,7 +13,17 @@ const app = express();
 const server = http.createServer(app);
 
 // 🔹 Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000", // pour le dev local
+      "https://ton-frontend.netlify.app", // ton futur site Netlify
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
 
 // 🔹 Routes API
@@ -26,7 +36,7 @@ app.use("/api/upload", require("./routes/upload"));
 // 🔹 Socket.IO configuration
 const io = new Server(server, {
   cors: {
-    origin: "*", // ⚠️ plus tard : mets l’URL de ton frontend
+    origin: ["http://localhost:3000", "https://ton-frontend.netlify.app"],
     methods: ["GET", "POST"],
   },
 });
