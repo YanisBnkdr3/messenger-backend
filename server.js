@@ -11,6 +11,9 @@ const Message = require("./models/Message");
 
 const app = express();
 const server = http.createServer(app);
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 
 // 🔹 Middleware
 app.use(
